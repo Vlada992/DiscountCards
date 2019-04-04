@@ -13,9 +13,9 @@ header {
     justify-content: center;
 }
 
-thead {
+/*thead {
     border-bottom: 5px solid black;
-}
+}*/
 
 h1 {
     color:#fff;
@@ -92,6 +92,7 @@ table {
 
 th {
     background:#768858;
+    color:#fff;
 }
 
 td {
@@ -123,6 +124,15 @@ tr td:nth-of-type(3) {
 
 input[type='search']{
     vertical-align: bottom;
+}
+
+.hide-search-txt {
+    display:none;
+}
+
+.show-search-txt {
+    display:inline;
+    color:darkred;
 }
 
 * {
@@ -157,3 +167,20 @@ input[type='search']{
 .btn-del-style {
     background:#8b0000;
 }
+
+
+.table-data-own {
+    background:red!important;
+    border:5px solid green;
+ }
+
+ .table-data-own {
+    background:red!important;
+    border:5px solid blue;
+ }
+
+ .searched-box {
+     border:4px solid darkred;
+ }
+
+ 

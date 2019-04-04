@@ -2,12 +2,9 @@ var usersArray = [];
 var selectedIndex = -1;
 
 console.log('It is:', localStorage.studentsRecord)
-console.log('moment', moment(), moment)
 
 function init() {
     document.getElementById("tablerows-0").innerHTML = "";
-    document.getElementById('regtable-1').style.visibility = 'hidden';
-
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
         for (var i = 0; i < usersArray.length; i++) {
@@ -25,7 +22,6 @@ function onRegisterPressed() {
      cardExpiration = document.getElementById('expiration-id').value;
      dateFormatted = moment(cardExpiration).format("DDMMYY"); 
 
-
     for (let n = 0; n < cardOptionId.length; n++) {
         cardNumbArr.push(document.getElementById(cardOptionId[n]).value);
     }
@@ -35,12 +31,6 @@ function onRegisterPressed() {
     var firstName = document.getElementById("firstname-id").value;
     var city = document.getElementById("city-id").value;
     var cardCode = cardNumber;
-
-    console.log('TO US:', String(firstName).charAt(0))
-    console.log('TOSU:', String(city).charAt(0))
-    console.log("tO SU:", cardCode, String(cardCode).charAt(0))
-    
-
 
     //so to have ascending or descending order => you need  to fetch first letter of each and then arrange them
     //also in number => just fetch first digit
@@ -64,35 +54,49 @@ function onRegisterPressed() {
 
 function onSearchPressed() {
     var searchQuery = document.getElementById('search-querry').value;
+
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
+
+        const firstName = usersArray.map(u => u.firstname);
+        const city = usersArray.map(u => u.city);
+        const cardCodes = usersArray.map(u => u.cardCode);
+  
         for (let i = 0; i < usersArray.length; i++) {
+            document.getElementById('tablerows-0').children[i].classList.remove('searched-box')
             if (searchQuery == usersArray[i].firstname || searchQuery == usersArray[i].city || searchQuery == usersArray[i].cardCode) {
-                prepareTableCell(i, usersArray[i].firstname, usersArray[i].city, usersArray[i].cardCode, 'onSearchPressed');
+                document.getElementById('search-btn').href = '#tablerows-0'; 
+                document.getElementById('tablerows-0').children[i].classList.add('searched-box')
+                document.getElementById('search-span-id').classList.remove('show-search-txt')
+                document.getElementById('search-span-id').classList.add('hide-search-txt')
+            } else if( (firstName.includes(searchQuery) || city.includes(searchQuery) || cardCodes.includes(searchQuery)) == false){
+
+                document.getElementById('search-span-id').classList.remove('hide-search-txt')
+                document.getElementById('search-span-id').classList.add('show-search-txt')
             }
         }
     }
-    document.getElementById('regtable-1').style.visibility = 'visible';
 };
 
-function prepareTableCell(index, firstName, city, cardCode, invokedFrom) {
-    let table;
-    if (invokedFrom == 'onSearchPressed') {
-        table = document.getElementById('tablerows-1')
-    } else {
-        table = document.getElementById("tablerows-0");
-    }
 
+/*----------------------------------*/
+/*-----------------------------------*/
+
+function prepareTableCell(index, firstName, city, cardCode, invokedFrom) {
+    var table = document.getElementById("tablerows-0");
     var row = table.insertRow();
     var firstNameCell = row.insertCell(0);
     var cityCell = row.insertCell(1);
     var cardCell = row.insertCell(2);
     var actionCell = row.insertCell(3);
-
     firstNameCell.innerHTML = firstName;
     cityCell.innerHTML = city;
     cardCell.innerHTML = cardCode;
     actionCell.innerHTML = '<button onclick="onEditPressed(' + index + ')">Edit</button class="btn-del-style"><br/><button onclick="deleteTableRow(' + index + ')">Delete</button>';
+
+   //-----------------------------------------
+   //--------------------------------------------
+
 };
 
 
@@ -101,7 +105,6 @@ function deleteTableRow(index) {
     var deletePrompt = prompt('Do you really want to delete cell?', 'yes');
     if (deletePrompt == 'yes') {
         localStorage.studentsRecord = JSON.stringify(usersArray);
-        document.getElementById('regtable-1').style.visibility = 'hidden';
         init();
     }
 };
@@ -110,15 +113,15 @@ function onClarPressed() {
     selectedIndex = -1;
     document.getElementById("firstname-id").value = "";
     document.getElementById("city-id").value = "";
-    document.getElementById("card-id").value = "";
     document.getElementById("submit").innerHTML = "Submit User";
+    //you need to clear also the select/options tags to initial value
 };
 
-function onEditPressed(index) {
+
+function onEditPressed(index) { 
     selectedIndex = index;
     var cardInfo = usersArray[index];
     document.getElementById("firstname-id").value = cardInfo.firstname;
     document.getElementById("city-id").value = cardInfo.city;
-    document.getElementById("card-id").value = cardInfo.cardCode;
     document.getElementById("submit").innerHTML = "Update";
 };
