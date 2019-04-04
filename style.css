@@ -44,6 +44,17 @@ input, select{
     background:#c1c9b4;
 }
 
+input[type='submit']{
+    background: #3b4a20;
+    color: #fff;
+    width:100px;
+    height:34px;
+}
+
+input[type='submit']:hover {
+    background:#293316;
+}
+
 option {
     background:#7d876c;
     color:#fff;
@@ -74,8 +85,25 @@ button {
     outline:none;
 }
 
-button:hover {
-    background:#293316;
+.btn-primary {
+    width:100px;
+    background: #3b4a20;
+    outline:none;
+    border:none;
+    margin:2%;
+}
+
+
+.btn-primary:visited {
+    background:#3b4a20!important;
+}
+
+.btn-primary:hover {
+    background:#293316!important;
+}
+
+.btn-primary:active {
+    background:#293316!important;
 }
 
 table {

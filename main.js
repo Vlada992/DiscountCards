@@ -8,8 +8,6 @@ function init() {
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
         for (var i = 0; i < usersArray.length; i++) {
-            console.log(usersArray);
-            console.log('search bar:', document.querySelector('#search-querry').value)
             prepareTableCell(i, usersArray[i].firstname, usersArray[i].city, usersArray[i].cardCode, 'init');
         }
     }
@@ -54,6 +52,7 @@ function onRegisterPressed() {
 
 function onSearchPressed() {
     var searchQuery = document.getElementById('search-querry').value;
+    var searchSpan = document.getElementById('search-span-id');
 
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
@@ -67,20 +66,32 @@ function onSearchPressed() {
             if (searchQuery == usersArray[i].firstname || searchQuery == usersArray[i].city || searchQuery == usersArray[i].cardCode) {
                 document.getElementById('search-btn').href = '#tablerows-0'; 
                 document.getElementById('tablerows-0').children[i].classList.add('searched-box')
-                document.getElementById('search-span-id').classList.remove('show-search-txt')
-                document.getElementById('search-span-id').classList.add('hide-search-txt')
+                searchSpan.classList.remove('show-search-txt')
+                searchSpan.classList.add('hide-search-txt')
             } else if( (firstName.includes(searchQuery) || city.includes(searchQuery) || cardCodes.includes(searchQuery)) == false){
-
-                document.getElementById('search-span-id').classList.remove('hide-search-txt')
-                document.getElementById('search-span-id').classList.add('show-search-txt')
+                searchSpan.classList.remove('hide-search-txt')
+                searchSpan.classList.add('show-search-txt')
             }
         }
     }
 };
 
 
-/*----------------------------------*/
-/*-----------------------------------*/
+function sortUsers(){
+    if (localStorage.studentsRecord) {
+        var userProp = document.getElementById('sort-id').value;
+        console.log('userprop', userProp)
+    usersArray = JSON.parse(localStorage.studentsRecord);
+
+    usersArray.sort(function(a, b){
+        return a[userProp] === b[userProp] ? 0 : a[userProp] < b[userProp] ? -1 : 1; //GREAT SOLUTION
+    })
+
+    console.log(usersArray)
+    localStorage.studentsRecord = JSON.stringify(usersArray);
+    init();
+    }
+}
 
 function prepareTableCell(index, firstName, city, cardCode, invokedFrom) {
     var table = document.getElementById("tablerows-0");
@@ -92,11 +103,9 @@ function prepareTableCell(index, firstName, city, cardCode, invokedFrom) {
     firstNameCell.innerHTML = firstName;
     cityCell.innerHTML = city;
     cardCell.innerHTML = cardCode;
-    actionCell.innerHTML = '<button onclick="onEditPressed(' + index + ')">Edit</button class="btn-del-style"><br/><button onclick="deleteTableRow(' + index + ')">Delete</button>';
-
+    actionCell.innerHTML = '<a class="btn btn-primary" href="#form-cont-id" onclick="onEditPressed(' + index + ')">Edit</a class="btn-del-style"><br/><a class="btn btn-primary" onclick="deleteTableRow(' + index + ')">Delete</a>';
    //-----------------------------------------
    //--------------------------------------------
-
 };
 
 
@@ -123,5 +132,5 @@ function onEditPressed(index) {
     var cardInfo = usersArray[index];
     document.getElementById("firstname-id").value = cardInfo.firstname;
     document.getElementById("city-id").value = cardInfo.city;
-    document.getElementById("submit").innerHTML = "Update";
+    document.getElementById("submit").value = "Update";
 };
