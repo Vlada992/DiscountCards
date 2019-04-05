@@ -7,67 +7,88 @@ html {
     scroll-behavior: smooth;
 }
 
+.row:nth-of-type(1) {
+    border-bottom:1px solid gray;
+    background-color:#f7f7f7;
+}
+
+.row:nth-of-type(2) {
+    background-color: #fafafa;
+    padding-top:5%;
+}
+
 header {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/*thead {
-    border-bottom: 5px solid black;
-}*/
-
 h1 {
-    color:#fff;
+    color: #fff;
     font-family: Impact;
 }
 
 label {
     display: block;
+    margin-top:2%;
 }
 
 fieldset {
-    width: 400px;
+    width:80%;
     margin: 0 auto;
 }
 
 input,
 select {
-    width: 400px;
-    height: 30px;
+    width:50%;
     border-radius: 5px;
     padding-left: 10px;
     font-size: 14px;
+    background: #c1c9b4;
 }
 
-input, select{
-    background:#c1c9b4;
-}
-
-input[type='submit']{
+input[type='submit'] {
     background: #3b4a20;
     color: #fff;
-    width:100px;
-    height:34px;
 }
 
 input[type='submit']:hover {
-    background:#293316;
+    background: #293316;
 }
 
-option {
-    background:#7d876c;
-    color:#fff;
+#clear:hover {
+    background: #293316;
+}
+
+input[type='search'] {
+    vertical-align: bottom;
+}
+
+select option {
+    background: #a9ada1;
+    color: #fff;
+    border-radius:5px!important;
+}
+
+#sort-opt-ascending,
+#sort-opt-descending,
+#search-querry {
+    height: 32px;
+    vertical-align: bottom;
 }
 
 input::placeholder {
-    font-style:italic;
-    color:gray;
+    font-style: italic;
+    color: black;
+    font-weight:900;
+    opacity:0.5;
 }
 
 input:focus {
-    background-color:#99a682;
-    outline:none;
+    background-color: #99a682;
+    outline: none;
+    color:black;
+    font-weight:800;
 }
 
 select {
@@ -80,69 +101,65 @@ button {
     border-radius: 2px;
     background: #3b4a20;
     color: #ffffff;
-    width: 100px;
     border-radius: 5px;
-    outline:none;
+    outline: none;
+    border:none;
 }
 
 .btn-primary {
-    width:100px;
     background: #3b4a20;
-    outline:none;
-    border:none;
-    margin:2%;
+    outline: none;
+    border: none;
+    margin: 2%;
+    width:100px;
 }
 
-
 .btn-primary:visited {
-    background:#3b4a20!important;
+    background: #3b4a20 !important;
 }
 
 .btn-primary:hover {
-    background:#293316!important;
+    background: #293316 !important;
 }
 
 .btn-primary:active {
-    background:#293316!important;
+    background: #293316 !important;
 }
 
 table {
     border-collapse: collapse;
     margin: 0 auto;
     margin-top: 5%;
-    margin-bottom:10%;
+    margin-bottom: 10%;
+    width:50%;
 }
 
 #tablerows-0 {
-    margin-bottom:10%;
-    padding-bottom:10%;
-}
-
-th {
-    background:#768858;
-    color:#fff;
+    margin-bottom: 10%;
+    padding-bottom: 10%;
 }
 
 td {
-    background:#E8E8E8;
+    background: #E8E8E8;
 }
 
-th,
+thead,th,
 td {
     border: 2px solid black;
-    padding: 25px 60px;
-    font-weight:900;
+    font-weight: 900;
 }
 
 tr td:nth-of-type(3) {
     color:#365899;
 }
 
+
 .headerbar.top {
     background: #222a12;
+    background:#3F4E21;
     min-height: 100px;
-    margin:5%;
-    border-bottom:5px solid #080a04;
+    margin: 5%;
+    border-bottom: 5px solid darkred;
 }
 
 .headerbar.bottom {
@@ -150,65 +167,188 @@ tr td:nth-of-type(3) {
     min-height: 60px;
 }
 
-input[type='search']{
-    vertical-align: bottom;
-}
-
 .hide-search-txt {
-    display:none;
+    display: none;
 }
 
 .show-search-txt {
-    display:inline;
-    color:darkred;
+    display: inline;
+    color: darkred;
 }
 
 * {
-    outline:none;
+    outline: none;
 }
 
 #tablerows-1 {
-    margin-top:10%;
+    margin-top: 10%;
 }
 
 .col-own-style {
-    text-align:center;
-    margin-bottom:15%;
+    text-align: center;
+    margin-bottom: 15%;
 }
 
 .btn-warning-own {
- background:#3b4a20!important;
- font-weight: 900;
- outline:none;
- border:none;
+    background: #3b4a20 !important;
+    font-weight: 900;
+    outline: none;
+    border: none;
 }
 
 .btn-warning-own:hover {
-    background:#293316!important;
-    outline:none;
+    background: #293316 !important;
+    outline: none;
 }
 
 .btn-warning-own:active {
-    background:#293316!important;
+    background: #293316 !important;
 }
 
 .btn-del-style {
-    background:#8b0000;
+    background: #8b0000;
+}
+
+.table-data-own {
+    background: red !important;
+    border: 5px solid green;
+}
+
+.table-data-own {
+    background: red !important;
+    border: 5px solid blue;
+}
+
+.searched-box {
+    border: 2px solid darkred !important;
+    color: darkred !important;
+    background-color: green;
+    font-size: 23px;
+}
+
+.btn-prim-del {
+    background: darkred;
+    width:100px;
+}
+
+.btn-prim-del:hover {
+    background: #610000 !important;
+}
+
+.fieldset-descending {
+    margin-top: 1%;
+}
+
+.sort-class {
+    vertical-align: middle;
+}
+
+.sort-img {
+    margin-left: 10%;
+}
+
+.form-cont {
+    background-color: #F5F5F5;
+    background-color: #e3e3e3;
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5% 0;
+    border-bottom: 5px solid darkred;
+}
+
+.table {
+    width:75%;
+}
+
+.table > thead > tr > th {
+    border-bottom:3px solid darkred;
+    padding: 3% 0;
+    background: #768858;
+    color: #fff;
+    font-family: Bahnschrift;
+    text-align: center;
+    font-size:20px;
+    text-transform:uppercase;
+}
+
+input, select {
+    border:2px solid #3b4a20;
+}
+
+td:nth-of-type(4) {
+    text-align:center;
+}
+
+.col-lg-12:nth-of-type(2) {
+    margin-bottom:15%;
+}
+
+#submit, #clear, #search-querry, #search-btn {
+    width:25%;
+    height: 40px;
+    font-weight:900;
+}
+
+#search-btn {
+    height:40px;
+    line-height: 40px;
+    padding: 0px;
+}
+
+#sort-btn-ascending, #sort-btn-descending {
+  width:35%;
+  height:40px;
+  line-height: 40px;
+  padding:0px;
+}
+
+#sort-opt-ascending, #sort-opt-descending {
+    width:15%;
+    height: 40px;
 }
 
 
-.table-data-own {
-    background:red!important;
-    border:5px solid green;
- }
 
- .table-data-own {
-    background:red!important;
-    border:5px solid blue;
- }
 
- .searched-box {
-     border:4px solid darkred;
- }
 
- 
+
+@media only screen and (max-width: 1300px) {
+    .table {
+        width:100%;
+        max-width:100%;
+    }
+
+    .form-cont {
+        width:100%;
+    }
+  }
+
+@media only screen and (max-width: 800px) {
+    .table {
+        width:100%;
+        max-width:100%;
+    }
+
+    .form-cont {
+        width:100%;
+    }
+
+    input, select {
+        width:100%;
+    }
+
+    #submit, #clear, #search-querry, #search-btn {
+        width:100%;
+    }
+    
+    #sort-btn-ascending, #sort-btn-descending {
+      width:100%;  
+    }
+    
+    #sort-opt-ascending, #sort-opt-descending {
+        width:100%;
+    }
+
+  }
+

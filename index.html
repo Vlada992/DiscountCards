@@ -1,125 +1,154 @@
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Discount Cards</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Discount Cards</title>
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
 
-<body onload="init()">
+    <body onload="init()">
 
-    <div class="container-fluid">
+        <div class="container-fluid">
 
-        <div class='row text-center'>
-            <div class='col-lg-12'>
-                <header class="headerbar top">
-                    <h1>Discount Cards</h1>
-                </header>
+            <div class='row text-center'>
+                <div class='col-lg-12'>
+                    <header class="headerbar top">
+                        <h1>Discount Cards</h1>
+                    </header>
+                </div>
             </div>
-        </div>
 
-        <div class='row'>
-            <div class='col-lg-12'>
-                <form id='form-cont-id' onsubmit="onRegisterPressed()">
-                <fieldset>
-                    <label for="firstname-id"><span>First Name</span></label>
-                    <input type="text" placeholder="enter first name" id="firstname-id" required>
-                </fieldset>
+            <div class='row'>
+                <div class='col-lg-12'>
 
-                <fieldset>
-                    <label for="city-id">City</label>
-                    <input type="text" placeholder="enter city" id="city-id" required>
-                </fieldset>
+                    <div class='d-flex form-cont'> <!-- here is div for form and search fieldbars-->
+                    <form  class="d-flex" id='form-cont-id' onsubmit="onRegisterPressed()">
+                        <fieldset>
+                            <label for="firstname-id">First Name</label>
+                            <input type="text" placeholder="enter first name"
+                                id="firstname-id" required>
+                        </fieldset>
 
-                <fieldset>
-                        <label for="category-id">Category</label>
-                        <select id="category-id">
-                            <option value="1">Cosmetics</option>
-                            <option value="2">Books</option>
-                            <option value="3">Accessories</option>
-                            <option value="4">Services</option>
-                        </select>
-                </fieldset>
+                        <fieldset>
+                            <label for="city-id">City</label>
+                            <input type="text" placeholder="enter city"
+                                id="city-id" required>
+                        </fieldset>
 
-                <fieldset>
-                        <label for="accumulation-id">Accumulation</label>
-                        <select id="accumulation-id">
-                            <option value="0">Without</option>
-                            <option value="1">With</option>
-                        </select>
-                </fieldset>
+                        <fieldset>
+                            <label for="category-id">Category</label>
 
-            
-                <fieldset>
-                        <label for="percentage-id">Discount %</label>
-                        <select id="percentage-id">
-                            <option value="05">5%</option>
-                            <option value="10">10%</option>
-                            <option value="20">20%</option>
-                            <option value="30">30%</option>
-                        </select>
-                </fieldset>
+                            <select id="category-id">
+                                <option value="1">Cosmetics</option>
+                                <option value="2">Books</option>
+                                <option value="3">Accessories</option>
+                                <option value="4">Services</option>
+                            </select>
+                        </fieldset>
 
-                <fieldset>
-                        <label for="expiration-id">Expiration Date</label>
-                        <input type="date" id="expiration-id" name="card-start"
-                         value="2019-05-01" min="2019-05-01" max="2021-12-31">
-                </fieldset>
+                        <fieldset>
+                            <label for="accumulation-id">Accumulation</label>
+                            <select id="accumulation-id">
+                                <option value="0">Without</option>
+                                <option value="1">With</option>
+                            </select>
+                        </fieldset>
 
-                <fieldset>
-                    <label for="submit">Submit </label>
-                    <input id="submit"  type="submit" value="Submit">
-                    <button id="clear" onclick="onClarPressed()">Clear</button>
-                </fieldset>
-            </form>
+                        <fieldset>
+                            <label for="percentage-id">Discount %</label>
+                            <select id="percentage-id">
+                                <option value="05">5%</option>
+                                <option value="10">10%</option>
+                                <option value="20">20%</option>
+                                <option value="30">30%</option>
+                            </select>
+                        </fieldset>
 
-                <fieldset>
+                        <fieldset>
+                            <label for="expiration-id">Expiration Date</label>
+                            <input type="date" id="expiration-id"
+                                name="card-start"
+                                value="2019-05-01" min="2019-05-01"
+                                max="2021-12-31">
+                        </fieldset>
+
+                        <fieldset>
+                            <label for="submit">Submit/Clear </label>
+                            <input id="submit" type="submit" value="Submit">
+                            <button id="clear" onclick="onClarPressed()">Clear</button>
+                        </fieldset>
+                    </form>
+
+                    <fieldset>
                         <label for="search-querry">Search by user/city/card code</label>
-                        <input type="search" id="search-querry" placeholder='search for data'>
-                        <a class="btn btn-warning btn-warning-own"  id='search-btn' onclick="onSearchPressed()">Search!</a>
-                         <span id='search-span-id' class='hide-search-txt'>Searched term doesn't exist!</span>
-                </fieldset>
+                        <input type="search" id="search-querry"
+                            placeholder='search for data'>
+                        <a class="btn btn-warning btn-warning-own"
+                            id='search-btn' onclick="onSearchPressed()">Search!</a>
+                        <span id='search-span-id' class='hide-search-txt'>Searched
+                            term doesn't exist!</span>
+                    </fieldset>
 
-                <fieldset>
-                        <label for="search-querry">Sort users ascending/descending</label>
-                        <a class="btn btn-warning btn-warning-own"  id='sort-btn' onclick="sortUsers()">Sort Ascending</a>
-                        <select id="sort-id">
-                                <option value="firstname">Name</option>
-                                <option value="city">City</option>
-                                <option value="cardCode">cardCode</option>
+                    <fieldset>
+                        <label for="sort-opt-ascending">Sort users
+                            ascending</label>
+                        <a class="btn btn-warning btn-warning-own" id='sort-btn-ascending'
+                            onclick="sortUsers('ascending')"> 
+                            <span class='sort-class'>Sort Ascending</span> <img class='sort-img' src='./images/arrow-up16.png'/></a>
+                        <select id="sort-opt-ascending">
+                            <option value="firstname">Name</option>
+                            <option value="city">City</option>
+                            <option value="cardCode">cardCode</option>
                         </select>
-                </fieldset>
+                    </fieldset>
+
+                    <fieldset class='fieldset-descending'>
+                        <label for='sort-opt-descending'>Sort users descending</label>
+                            <a class="btn btn-warning btn-warning-own" id='sort-btn-descending'
+                            onclick="sortUsers('descending')">
+                            <span class='sort-class'>Sort Descending</span> <img class='sort-img' src='./images/arrow-pointing-down.png'/></a>
+                        <select id="sort-opt-descending">
+                            <option value="firstname">Name</option>  
+                            <option value="city">City</option>
+                            <option value="cardCode">cardCode</option>
+                        </select>
+                    </fieldset>
+
+                    </div> <!--container for form-->
+
+                </div>
+
+                <div class='col-lg-12'> 
+                    <table class='table d-flex' id="regtable">
+                        <thead>
+                            <tr>
+                                <th class='col-2'>First Name</th>
+                                <th class='col-2'>City</th>
+                                <th class='col-2'>Card code</th>
+                                <th class='col-2'>Action </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablerows-0">
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
-
-            <div class='col-lg-12'>   
-                <table id="regtable">
-                    <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>City</th>
-                            <th>Card code</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablerows-0">
-                    </tbody>
-                </table>
-            </div>
-
-
         </div>
-    </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>   
-    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
-    <script src='main.js'></script>
-</body>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+        <script src='main.js'></script>
+    </body>
 
 </html>
