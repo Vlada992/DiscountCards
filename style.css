@@ -72,6 +72,7 @@ select option {
 
 #sort-opt-ascending,
 #sort-opt-descending,
+#filter-searched-code,
 #search-querry {
     height: 32px;
     vertical-align: bottom;
@@ -220,7 +221,6 @@ tr td:nth-of-type(3) {
 }
 
 .searched-box {
-    border: 2px solid darkred !important;
     color: darkred !important;
     background-color: green;
     font-size: 23px;
@@ -284,7 +284,7 @@ td:nth-of-type(4) {
     margin-bottom:15%;
 }
 
-#submit, #clear, #search-querry, #search-btn {
+#submit, #clear, #search-querry, #search-btn, #filter-btn-searched{
     width:25%;
     height: 40px;
     font-weight:900;
@@ -296,19 +296,17 @@ td:nth-of-type(4) {
     padding: 0px;
 }
 
-#sort-btn-ascending, #sort-btn-descending {
+#sort-btn-ascending, #sort-btn-descending, #filter-btn-searched {
   width:35%;
   height:40px;
   line-height: 40px;
   padding:0px;
 }
 
-#sort-opt-ascending, #sort-opt-descending {
+#sort-opt-ascending, #sort-opt-descending, #filter-searched-code {
     width:15%;
     height: 40px;
 }
-
-
 
 
 
