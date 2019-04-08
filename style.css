@@ -8,13 +8,13 @@ html {
 }
 
 .row:nth-of-type(1) {
-    border-bottom:1px solid gray;
-    background-color:#f7f7f7;
+    border-bottom: 1px solid gray;
+    background-color: #f7f7f7;
 }
 
 .row:nth-of-type(2) {
     background-color: #fafafa;
-    padding-top:5%;
+    padding-top: 5%;
 }
 
 header {
@@ -30,17 +30,17 @@ h1 {
 
 label {
     display: block;
-    margin-top:2%;
+    margin-top: 2%;
 }
 
 fieldset {
-    width:80%;
+    width: 80%;
     margin: 0 auto;
 }
 
 input,
 select {
-    width:50%;
+    width: 50%;
     border-radius: 5px;
     padding-left: 10px;
     font-size: 14px;
@@ -67,7 +67,7 @@ input[type='search'] {
 select option {
     background: #a9ada1;
     color: #fff;
-    border-radius:5px!important;
+    border-radius: 5px !important;
 }
 
 #sort-opt-ascending,
@@ -81,15 +81,15 @@ select option {
 input::placeholder {
     font-style: italic;
     color: black;
-    font-weight:900;
-    opacity:0.5;
+    font-weight: 900;
+    opacity: 0.5;
 }
 
 input:focus {
     background-color: #99a682;
     outline: none;
-    color:black;
-    font-weight:800;
+    color: black;
+    font-weight: 800;
 }
 
 select {
@@ -104,7 +104,7 @@ button {
     color: #ffffff;
     border-radius: 5px;
     outline: none;
-    border:none;
+    border: none;
 }
 
 .btn-primary {
@@ -112,7 +112,7 @@ button {
     outline: none;
     border: none;
     margin: 2%;
-    width:100px;
+    width: 100px;
 }
 
 .btn-primary:visited {
@@ -132,7 +132,7 @@ table {
     margin: 0 auto;
     margin-top: 5%;
     margin-bottom: 10%;
-    width:50%;
+    width: 50%;
 }
 
 #tablerows-0 {
@@ -144,20 +144,21 @@ td {
     background: #E8E8E8;
 }
 
-thead,th,
+thead,
+th,
 td {
     border: 2px solid black;
     font-weight: 900;
 }
 
 tr td:nth-of-type(3) {
-    color:#365899;
+    color: #365899;
 }
 
 
 .headerbar.top {
     background: #222a12;
-    background:#3F4E21;
+    background: #3F4E21;
     min-height: 100px;
     margin: 5%;
     border-bottom: 5px solid darkred;
@@ -228,7 +229,7 @@ tr td:nth-of-type(3) {
 
 .btn-prim-del {
     background: darkred;
-    width:100px;
+    width: 100px;
 }
 
 .btn-prim-del:hover {
@@ -258,53 +259,62 @@ tr td:nth-of-type(3) {
 }
 
 .table {
-    width:75%;
+    width: 75%;
 }
 
-.table > thead > tr > th {
-    border-bottom:3px solid darkred;
+.table>thead>tr>th {
+    border-bottom: 3px solid darkred;
     padding: 3% 0;
     background: #768858;
     color: #fff;
     font-family: Bahnschrift;
     text-align: center;
-    font-size:20px;
-    text-transform:uppercase;
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
-input, select {
-    border:2px solid #3b4a20;
+input,
+select {
+    border: 2px solid #3b4a20;
 }
 
 td:nth-of-type(4) {
-    text-align:center;
+    text-align: center;
 }
 
 .col-lg-12:nth-of-type(2) {
-    margin-bottom:15%;
+    margin-bottom: 15%;
 }
 
-#submit, #clear, #search-querry, #search-btn, #filter-btn-searched{
-    width:25%;
+#submit,
+#clear,
+#search-querry,
+#search-btn,
+#filter-btn-searched {
+    width: 25%;
     height: 40px;
-    font-weight:900;
+    font-weight: 900;
 }
 
 #search-btn {
-    height:40px;
+    height: 40px;
     line-height: 40px;
     padding: 0px;
 }
 
-#sort-btn-ascending, #sort-btn-descending, #filter-btn-searched {
-  width:35%;
-  height:40px;
-  line-height: 40px;
-  padding:0px;
+#sort-btn-ascending,
+#sort-btn-descending,
+#filter-btn-searched {
+    width: 35%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px;
 }
 
-#sort-opt-ascending, #sort-opt-descending, #filter-searched-code {
-    width:15%;
+#sort-opt-ascending,
+#sort-opt-descending,
+#filter-searched-code {
+    width: 15%;
     height: 40px;
 }
 
@@ -313,40 +323,45 @@ td:nth-of-type(4) {
 
 @media only screen and (max-width: 1300px) {
     .table {
-        width:100%;
-        max-width:100%;
+        width: 100%;
+        max-width: 100%;
     }
 
     .form-cont {
-        width:100%;
+        width: 100%;
     }
-  }
+}
 
 @media only screen and (max-width: 800px) {
     .table {
-        width:100%;
-        max-width:100%;
+        width: 100%;
+        max-width: 100%;
     }
 
     .form-cont {
-        width:100%;
+        width: 100%;
     }
 
-    input, select {
-        width:100%;
+    input,
+    select {
+        width: 100%;
     }
 
-    #submit, #clear, #search-querry, #search-btn {
-        width:100%;
-    }
-    
-    #sort-btn-ascending, #sort-btn-descending {
-      width:100%;  
-    }
-    
-    #sort-opt-ascending, #sort-opt-descending {
-        width:100%;
+    #submit,
+    #clear,
+    #search-querry,
+    #search-btn {
+        width: 100%;
     }
 
-  }
+    #sort-btn-ascending,
+    #sort-btn-descending {
+        width: 100%;
+    }
 
+    #sort-opt-ascending,
+    #sort-opt-descending {
+        width: 100%;
+    }
+
+}

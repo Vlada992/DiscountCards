@@ -3,10 +3,13 @@ var usersArray = [],
 var cardCodes, city, firstName, filterDOM;
 var cardCategory = [],
     cardPercentage = [],
-    cardExpiration;
+    cardExpiration, allRowsDom = [];
 
 function init() {
     document.getElementById("tablerows-0").innerHTML = "";
+    document.getElementById('tablerows-0').style.visibility = 'visible';
+    document.getElementById('regtable').style.display = 'table';
+
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
         for (var i = 0; i < usersArray.length; i++) {
@@ -16,9 +19,7 @@ function init() {
 };
 
 function onRegisterPressed() {
-    var cardNumbArr = [],
-        cardNumber, cardOptionId = [];
-    var cardExpiration, dateFormatted;
+    var cardNumbArr = [], cardNumber, cardOptionId = [], cardExpiration, dateFormatted;
     cardOptionId = ['category-id', 'accumulation-id', 'percentage-id'];
     cardExpiration = document.getElementById('expiration-id').value;
     dateFormatted = moment(cardExpiration).format("DDMMYY");
@@ -51,9 +52,9 @@ function onRegisterPressed() {
 
 
 function onSearchPressed(calledFrom) {
+    document.getElementById('tablerows-0').style.visibility = 'visible';
     var searchQuery = document.getElementById('search-querry').value;
-    var arrayFromCode = [];
-    //var searchSpan = document.getElementById('search-span-id');
+
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
 
@@ -61,38 +62,42 @@ function onSearchPressed(calledFrom) {
         city = usersArray.map(u => u.city);
         cardCodes = usersArray.map(u => u.cardCode);
 
-
-
         for (let i = 0; i < usersArray.length; i++) {
-            document.getElementById('tablerows-0').children[i].classList.remove('searched-box')
+            document.getElementById('tablerows-0').children[i].style.display = 'none';
+
             if (searchQuery == usersArray[i].firstname || searchQuery == usersArray[i].city || searchQuery == usersArray[i].cardCode) {
                 document.getElementById('search-btn').href = '#tablerows-0';
-                document.getElementById('tablerows-0').children[i].classList.add('searched-box')
+                document.getElementById('tablerows-0').children[i].style.display = 'table-row'
+
+                allRowsDom.push(document.getElementById('tablerows-0').children[i])
+                cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
+                cardCategory.push(String(cardCodes[i])[0]);
+                //cardExpiration.push(String(cardCodes[i].substr(4)))
 
                 if (calledFrom == 'filter') {
                     filterDOM = document.getElementById('filter-searched-code').value;
-                    console.log(filterDOM)
-
-                    cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join()) //percentage PART
-                    cardCategory.push(String(cardCodes[i])[0]); //card category PART
-                    cardExpiration.push(String(cardCodes[i].substr(4)))
-                    //--------------------------------------------------------------
 
                     if (cardPercentage.includes(String(filterDOM)) || cardCategory.includes(filterDOM) || cardExpiration.includes(filterDOM)) {
-                        console.log('works')
-                        document.getElementById('tablerows-0').children[i].style.border = '5px solid blue'
-                    }
-                    //--------------------------------------------------------------
-                } //if called from filter buttons
+                        Array.from(allRowsDom).map((eachEl, itr) => { 
+                            eachEl.style.display = 'none';
 
+                            if (eachEl.cells[2].innerText.slice(2, 4) == filterDOM) {
+                                eachEl.style.display = 'table-row';
+                            }
+                        })
+                    }
+                } 
                 //======================================================================================================================//
             } else if ((firstName.includes(searchQuery) || city.includes(searchQuery) || cardCodes.includes(searchQuery)) == false) {
                 alert('Search term doesn\'t exist!')
+                document.getElementById('tablerows-0').style.visibility = 'hidden';
+                document.getElementById('regtable').style.display = 'none';
                 return;
             }
         }
     }
 };
+
 
 
 
