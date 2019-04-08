@@ -1,14 +1,14 @@
-var usersArray = [],
-    selectedIndex = -1;
-var cardCodes, city, firstName, filterDOM;
-var cardCategory = [],
-    cardPercentage = [],
-    cardExpiration, allRowsDom = [];
+var usersArray = [], selectedIndex = -1;
+var cardCodes, city, firstName, filterDOM, cardCode;
+var cardCategory = [], cardPercentage = [], cardExpiration1;
+var cardExpiration,  cardExp = [], allRowsDom = [];
+
+var regTable =  document.getElementById('regtable').style;
+var tableRow0 = document.getElementById("tablerows-0");
 
 function init() {
-    document.getElementById("tablerows-0").innerHTML = "";
-    document.getElementById('tablerows-0').style.visibility = 'visible';
-    document.getElementById('regtable').style.display = 'table';
+    tableRow0.innerHTML = "";
+    regTable.display = 'table';
 
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
@@ -19,9 +19,10 @@ function init() {
 };
 
 function onRegisterPressed() {
-    var cardNumbArr = [], cardNumber, cardOptionId = [], cardExpiration, dateFormatted;
+    var cardNumbArr = [], cardNumber, cardOptionId = [], dateFormatted;
     cardOptionId = ['category-id', 'accumulation-id', 'percentage-id'];
     cardExpiration = document.getElementById('expiration-id').value;
+    cardExpiration1 = document.getElementById('expiration-id-1').value;
     dateFormatted = moment(cardExpiration).format("DDMMYY");
 
     for (let n = 0; n < cardOptionId.length; n++) {
@@ -30,9 +31,9 @@ function onRegisterPressed() {
     cardNumbArr.push(dateFormatted)
     cardNumber = Number(cardNumbArr.join(''));
 
-    var firstName = document.getElementById("firstname-id").value;
-    var city = document.getElementById("city-id").value;
-    var cardCode = cardNumber;
+    firstName = document.getElementById("firstname-id").value;
+    city = document.getElementById("city-id").value;
+    cardCode = cardNumber;
 
     var cardInfo = {
         firstname: firstName,
@@ -47,57 +48,63 @@ function onRegisterPressed() {
     }
     localStorage.studentsRecord = JSON.stringify(usersArray);
     init();
-    onClarPressed();
+    onClearPressed();
 };
 
 
 function onSearchPressed(calledFrom) {
-    document.getElementById('tablerows-0').style.visibility = 'visible';
+    regTable.display = 'table';
     var searchQuery = document.getElementById('search-querry').value;
 
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
-
         firstName = usersArray.map(u => u.firstname);
         city = usersArray.map(u => u.city);
-        cardCodes = usersArray.map(u => u.cardCode);
+        cardCodes = usersArray.map(u => u.cardCode); 
 
         for (let i = 0; i < usersArray.length; i++) {
-            document.getElementById('tablerows-0').children[i].style.display = 'none';
+            tableRow0.children[i].style.display = 'none';
 
             if (searchQuery == usersArray[i].firstname || searchQuery == usersArray[i].city || searchQuery == usersArray[i].cardCode) {
                 document.getElementById('search-btn').href = '#tablerows-0';
-                document.getElementById('tablerows-0').children[i].style.display = 'table-row'
+                tableRow0.children[i].style.display = 'table-row'
 
-                allRowsDom.push(document.getElementById('tablerows-0').children[i])
+                allRowsDom.push(tableRow0.children[i])
                 cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
                 cardCategory.push(String(cardCodes[i])[0]);
-                //cardExpiration.push(String(cardCodes[i].substr(4)))
+                cardExp.push(String(cardCodes).substr(4))
 
                 if (calledFrom == 'filter') {
                     filterDOM = document.getElementById('filter-searched-code').value;
 
-                    if (cardPercentage.includes(String(filterDOM)) || cardCategory.includes(filterDOM) || cardExpiration.includes(filterDOM)) {
-                        Array.from(allRowsDom).map((eachEl, itr) => { 
+                    if (cardPercentage.includes(filterDOM)  ) {
+                        Array.from(allRowsDom).map((eachEl, itr) => {
                             eachEl.style.display = 'none';
-
                             if (eachEl.cells[2].innerText.slice(2, 4) == filterDOM) {
                                 eachEl.style.display = 'table-row';
                             }
                         })
-                    }
-                } 
+                    } else if(cardCategory.includes(filterDOM)){
+                        Array.from(allRowsDom).map((eachEl, itr) => {
+                            eachEl.style.display = 'none';
+                            if (eachEl.cells[2].innerText.slice(0,1) == filterDOM) {
+                                eachEl.style.display = 'table-row';
+                            }
+                        })
+                    } else if(cardExp.includes(filterDOM)){
+                        console.log('bla')
+                    } else regTable.display = 'none'
+                }
                 //======================================================================================================================//
             } else if ((firstName.includes(searchQuery) || city.includes(searchQuery) || cardCodes.includes(searchQuery)) == false) {
                 alert('Search term doesn\'t exist!')
-                document.getElementById('tablerows-0').style.visibility = 'hidden';
-                document.getElementById('regtable').style.display = 'none';
+                tableRow0.style.visibility = 'hidden';
+                regTable.display = 'none';
                 return;
             }
         }
     }
 };
-
 
 
 
@@ -116,14 +123,14 @@ function sortUsers(sortArg) {
                 return a[userPropDesc] === b[userPropDesc] ? 0 : a[userPropDesc] > b[userPropDesc] ? -1 : 1;
             })
         }
-        localStorage.studentsRecord = JSON.stringify(usersArray); //send back to localStorage
+        localStorage.studentsRecord = JSON.stringify(usersArray);
         init();
     }
 };
 
 
 function prepareTableCell(index, firstName, city, cardCode) {
-    var table = document.getElementById("tablerows-0");
+    var table = tableRow0;
     var row = table.insertRow();
     var firstNameCell = row.insertCell(0);
     var cityCell = row.insertCell(1);
@@ -145,7 +152,7 @@ function deleteTableRow(index) {
     }
 };
 
-function onClarPressed() {
+function onClearPressed() {
     selectedIndex = -1;
     document.getElementById("firstname-id").value = "";
     document.getElementById("city-id").value = "";
