@@ -52,12 +52,27 @@ input[type='submit'] {
     color: #fff;
 }
 
+
 input[type='submit']:hover {
     background: #293316;
+    color:#fff;
+
 }
+
+input[type='submit']:focus {
+    background: #111509;
+    color:#fff;
+}
+
+
+
 
 #clear:hover {
     background: #293316;
+}
+
+#clear:focus {
+    background: #111509;
 }
 
 input[type='search'] {
@@ -123,8 +138,8 @@ button {
     background: #293316 !important;
 }
 
-.btn-primary:active {
-    background: #293316 !important;
+.btn-primary:focus {
+    background: #111509!important;
 }
 
 table {
@@ -157,8 +172,8 @@ tr td:nth-of-type(3) {
 
 
 .headerbar.top {
-    background: #222a12;
     background: #3F4E21;
+    background-image: linear-gradient(to right, #3F4E21, #636f4b 80%);
     min-height: 100px;
     margin: 5%;
     border-bottom: 5px solid darkred;
@@ -176,6 +191,8 @@ tr td:nth-of-type(3) {
 .show-search-txt {
     display: inline;
     color: darkred;
+    background-color:#D3D3D3;
+    padding:0.2%;
 }
 
 * {
@@ -204,26 +221,15 @@ tr td:nth-of-type(3) {
 }
 
 .btn-warning-own:active {
-    background: #293316 !important;
+    background: #111509!important;
 }
 
 .btn-del-style {
     background: #8b0000;
 }
 
-.table-data-own {
-    background: red !important;
-    border: 5px solid green;
-}
-
-.table-data-own {
-    background: red !important;
-    border: 5px solid blue;
-}
-
 .searched-box {
     color: darkred !important;
-    background-color: green;
     font-size: 23px;
 }
 
@@ -235,6 +241,12 @@ tr td:nth-of-type(3) {
 .btn-prim-del:hover {
     background: #610000 !important;
 }
+
+.btn-prim-del:active {
+    background: #3a0000!important;
+}
+
+
 
 .fieldset-descending {
     margin-top: 1%;
@@ -255,9 +267,9 @@ tr td:nth-of-type(3) {
     margin: 0 auto;
     text-align: center;
     padding: 5% 0;
-    border-bottom: 5px solid darkred;
+    border-bottom: 5px solid darkred; 
 }
-
+    
 .table {
     width: 75%;
 }
@@ -300,6 +312,13 @@ td:nth-of-type(4) {
     height: 40px;
     line-height: 40px;
     padding: 0px;
+}
+
+.helper-span {
+    height:100%;
+    display:inline-block;
+    vertical-align:middle;
+    text-align:center
 }
 
 #sort-btn-ascending,
