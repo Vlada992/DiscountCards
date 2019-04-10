@@ -81,42 +81,56 @@
                     <fieldset>
                         <label for="search-querry">Search by user/city/cardcode
                             <span id='search-span-id' class='hide-search-txt'>Searched term doesn't exist!</span>
-                            
+
 
                         </label>
                         <input type="search" id="search-querry" placeholder='search for data'>
                         <a class="btn btn-warning btn-warning-own" id='search-btn'
                             onclick="onSearchPressed('search')"><span class='helper-span'></span>
-                            <img src='./images/search-icon.png'/></a>
+                            <img src='./images/search-icon.png' /></a>
+
+                            
                     </fieldset>
+                    
 
                     <fieldset>
                         <label for="filter-searched-code">Filter searched
                             users</label>
                         <a class="btn btn-warning btn-warning-own" id='filter-btn-searched'
-                            onclick="onSearchPressed('filter')">
+                            onclick="filteredOnSearched('filter')">
+
+
                             <span class='sort-class'>Filter Searched</span>
                             <img class='sort-img' src='./images/filter1.png' /></a>
-                        <select id="filter-searched-code">
+                        
+                        <!-- ----------------------new functionalitty---------------------------------- -->
+                        <select id='filter-searched-code-category'>
                             <optgroup label="Category">
+                                <option value="none">none</option>
                                 <option value="1">Cosmetics</option>
                                 <option value="2">Books</option>
                                 <option value="3">Accessories</option>
                                 <option value="4">Services</option>
                             </optgroup>
+                        </select>
 
+                        <select id='filter-searched-code-discount'>
                             <optgroup label="Discount %">
+                                <option value="none">none</option>
                                 <option value="05">5%</option>
                                 <option value="10">10%</option>
                                 <option value="20">20%</option>
                                 <option value="30">30%</option>
                             </optgroup>
+                        </select>
 
+                        <select id='filter-searched-code-date'>
                             <optgroup label="Expiration Date">
-                                <input type="date" id="expiration-id-1" name="card-start" value="2019-05-01"
-                                    min="2019-05-01" max="2021-12-31">
+                                
                             </optgroup>
                         </select>
+
+
                     </fieldset>
 
 

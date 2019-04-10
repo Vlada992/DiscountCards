@@ -168,12 +168,13 @@ td {
 
 tr td:nth-of-type(3) {
     color: #365899;
+    font-family: cursive;
 }
 
 
 .headerbar.top {
     background: #3F4E21;
-    background-image: linear-gradient(to right, #3F4E21, #636f4b 80%);
+    
     min-height: 100px;
     margin: 5%;
     border-bottom: 5px solid darkred;
@@ -301,8 +302,7 @@ td:nth-of-type(4) {
 #submit,
 #clear,
 #search-querry,
-#search-btn,
-#filter-btn-searched {
+#search-btn {
     width: 25%;
     height: 40px;
     font-weight: 900;
@@ -328,6 +328,11 @@ td:nth-of-type(4) {
     height: 40px;
     line-height: 40px;
     padding: 0px;
+}
+
+#filter-btn-searched {
+    width:50%;
+    margin-bottom:1%;
 }
 
 #sort-opt-ascending,
