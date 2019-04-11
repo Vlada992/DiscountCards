@@ -110,43 +110,35 @@ function onSearchPressed(calledFrom) {
         for (let i = 0; i < usersArray.length; i++) {
             tableRow0.children[i].style.display = 'none';
 
-            if (searchQuery == usersArray[i].firstname || searchQuery == usersArray[i].city || searchQuery == usersArray[i].cardCode) {
+            if (usersArray[i].firstname.indexOf(searchQuery) != -1 || usersArray[i].city.indexOf(searchQuery) != -1 || usersArray[i].cardCode.toString().indexOf(searchQuery) != -1) {
                 document.getElementById('search-btn').href = '#tablerows-0';
                 tableRow0.children[i].style.display = 'table-row';
                 searchSpan.classList.remove('show-search-txt');
                 searchSpan.classList.add('hide-search-txt');
 
-                {
                     allRowsDom.push(tableRow0.children[i])
                     cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
                     cardCategory.push(String(cardCodes[i])[0]);
                     cardDate.push(String(cardCodes[i]).substr(4, 10))
-                    console.log('to je:', cardDate);
-                }
+                
 
-            } else if ((firstName.includes(searchQuery) || city.includes(searchQuery) || cardCodes.includes(searchQuery)) == false) {
-                searchSpan.classList.remove('hide-search-txt')
-                searchSpan.classList.add('show-search-txt')
-                searchSpan.style.visibility = 'hidden'
-                setTimeout(() => {
-                    searchSpan.style.visibility = 'visible'
-                }, 75)
-
-                tableRow0.children[i].style.display = 'table-row';
-            }
+            } 
         }
     }
     filteredOnSearched();
 };
 
+//
+
+//
+
 function filteredOnSearched(calledFrom) {
     filterDOM = document.getElementById('filter-searched-code-category').value;
     filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
-    filterDOMDate = document.getElementById('filter-searched-code-date').value
+    filterDOMDate = document.getElementById('filter-searched-code-date').value;
     var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
 
-    var booleanFilter = (   cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent) ); 
-    /* &&  cardDate[0].includes(formatedDate1)*/
+    var booleanFilter = (   /*(*/ cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent) /*)  &&  cardDate.includes(formatedDate1)  */  ); 
     
     console.log(booleanFilter)
     console.log(formatedDate1);
@@ -164,8 +156,9 @@ function filteredOnSearched(calledFrom) {
             return;
         }
 
-        console.log(cardDate);
-        console.log('tacno ili ne:', cardDate[0].includes(formatedDate1));
+        console.log(cardDate[0], formatedDate1);
+        console.log('cardDate array', cardDate)
+        console.log('tacno ili ne:', cardDate.includes(formatedDate1));
 
 
         filtStyleArr.map(eachF => {
@@ -191,8 +184,8 @@ function filteredOnSearched(calledFrom) {
                 }
             });
             //============================================
-
-        } else if (cardDate[0].includes(formatedDate1)) {
+            console.log(cardDate.includes(formatedDate1))
+        } else if (cardDate.includes(formatedDate1)) {
             console.log('usli smo u date block!')
             allRowsDom.map((eachEl, itr) => {
                 eachEl.cells[2].innerText.slice(4)
