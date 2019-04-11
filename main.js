@@ -119,72 +119,6 @@ function onSearchPressed(calledFrom) {
     filteredOnSearched();
 };
 
-/*
-function filteredOnSearched(calledFrom) {
-    filterDOM = document.getElementById('filter-searched-code-category').value;
-    filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
-    filterDOMDate = document.getElementById('filter-searched-code-date').value;
-    var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
-    var booleanFilter =  cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent  ); 
-
-    
-    if (calledFrom == 'filter') {
-        if ( (filterDOM == 'none' && filterDOMPercent == 'none' ) && formatedDate1 == 'none') {
-            alert('You should provide some option value first')
-            return;
-        }
-
-        if (cardPercentage.includes(filterDOMPercent)) {
-            allRowsDom.map((eachEl, itr) => {
-                console.log('enter here percentage')
-                eachEl.style.display = 'none';
-                if (eachEl.cells[2].innerText.slice(2, 4) == filterDOMPercent) {
-                    eachEl.style.display = 'table-row';
-                }
-            });
-        } else if (cardCategory.includes(filterDOM)) {
-            allRowsDom.map((eachEl, itr) => {
-                eachEl.style.display = 'none';
-                if (eachEl.cells[2].innerText.slice(0, 1) == filterDOM) {
-                    eachEl.style.display = 'table-row';
-                }
-            });
-
-        } else if (cardDate.includes(formatedDate1)) {
-            allRowsDom.map((eachEl, itr) => {
-                eachEl.cells[2].innerText.slice(4)
-                eachEl.style.display = 'none';
-                if (eachEl.cells[2].innerText.slice(4) == formatedDate1) {
-                    eachEl.style.display = 'table-row';
-                }
-            });
-        } else {
-            allRowsDom.map((eachEl, itr) => {
-                eachEl.style.display = 'none';
-            });
-        }
-
-        if (booleanFilter) {
-            allRowsDom.map((eachEl, itr) => {
-                console.log('BOOLEAN FILTER')
-                var cellCardNumber = eachEl.cells[2].innerText;
-                eachEl.style.display = 'none';
-                if ( cellCardNumber.slice(0, 1) == filterDOM && cellCardNumber.slice(2, 4) == filterDOMPercent ) {
-                    eachEl.style.display = 'table-row';
-                }
-            });
-
-        } else if ((filterDOM != 'none' && filterDOMPercent != 'none') && !(booleanFilter)) {
-            allRowsDom.map((eachEl, itr) => {
-                eachEl.style.display = 'none';
-            });
-        }
-    };
-};
-
-*/
-
-//=========================================
 function filteredOnSearched(calledFrom) {
     filterDOM = document.getElementById('filter-searched-code-category').value;
     filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
@@ -199,15 +133,15 @@ function filteredOnSearched(calledFrom) {
  
         let filteredData = allRowsDom
  
-        if (filterDOMPercent != 'none' && cardPercentage.includes(filterDOMPercent)) {
+        if (filterDOMPercent != 'none'  ) {
             filteredData = filteredData.filter(el => el.cells[2].innerText.slice(2, 4) == filterDOMPercent)
         }
  
-        if (filterDOM != 'none' && cardCategory.includes(filterDOM)) {
+        if (filterDOM != 'none' ) {
           filteredData = filteredData.filter(el => el.cells[2].innerText.slice(0, 1) == filterDOM)
         }
  
-        if (formatedDate1 != 'none' && cardDate.includes(formatedDate1)) {
+        if (formatedDate1 != 'none') {
           filteredData = filteredData.filter(el => el.cells[2].innerText.slice(4) == formatedDate1)
         }
  
@@ -221,9 +155,6 @@ function filteredOnSearched(calledFrom) {
  
     };
 };
-//================================
-
-
 
 function sortUsers(sortOpt, name){
     if (localStorage.studentsRecord) {
@@ -238,6 +169,7 @@ function sortUsers(sortOpt, name){
         init();
     }
 }
+
 
 
 function prepareTableCell(index, firstName, city, cardCode) {
