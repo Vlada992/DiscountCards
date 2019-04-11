@@ -13,12 +13,8 @@ var submitDom = document.getElementById("submit");
 var tableRow0 = document.getElementById("tablerows-0");
 var filterBtn = document.getElementById('filter-btn-searched');
 
-
-//taking filter dom, without value, to style them.
 filterDOMElCateg = document.getElementById('filter-searched-code-category');
 filterDOMElPerc = document.getElementById('filter-searched-code-discount');
-
-
 
 
 $("#submit").on('click', function () {
@@ -42,8 +38,6 @@ function init() {
 
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
-        // usersArray.push(JSON.parse(localStorage.studentsRecord)); //ovo smo ispravili
-        console.log(usersArray)
         for (var i = 0; i < usersArray.length; i++) {
             prepareTableCell(i, usersArray[i].firstname, usersArray[i].city, usersArray[i].cardCode);
         }
@@ -64,7 +58,6 @@ function onRegisterPressed() {
 
     cardOptionId = ['category-id', 'accumulation-id', 'percentage-id'];
     cardExpiration = document.getElementById('expiration-id').value;
-    //cardExpiration1 = document.getElementById('expiration-id-1').value;
     dateFormatted = moment(cardExpiration).format("DDMMYY");
 
     for (let n = 0; n < cardOptionId.length; n++) {
@@ -120,52 +113,26 @@ function onSearchPressed(calledFrom) {
                     cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
                     cardCategory.push(String(cardCodes[i])[0]);
                     cardDate.push(String(cardCodes[i]).substr(4, 10))
-                
-
             } 
         }
     }
     filteredOnSearched();
 };
 
-//
-
-//
 
 function filteredOnSearched(calledFrom) {
     filterDOM = document.getElementById('filter-searched-code-category').value;
     filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
     filterDOMDate = document.getElementById('filter-searched-code-date').value;
     var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
-
-    var booleanFilter = (   /*(*/ cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent) /*)  &&  cardDate.includes(formatedDate1)  */  ); 
-    
-    console.log(booleanFilter)
+    var booleanFilter =  cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent ); 
     console.log(formatedDate1);
-    console.log('tacno ili ne:', cardDate[0].includes(formatedDate1));
-    
-    filtStyleArr = [filterBtn, filterDOMElCateg, filterDOMElPerc];
-    filtStyleArr.map(eachF => {
-        eachF.style.border = '2px solid darkred';
-        eachF.style.boxShadow = 'darkred 5px 5px 20px';
-    })
 
     if (calledFrom == 'filter') {
         if ( (filterDOM == 'none' && filterDOMPercent == 'none' ) && formatedDate1 == 'none') {
             alert('You should provide some option value first')
             return;
         }
-
-        console.log(cardDate[0], formatedDate1);
-        console.log('cardDate array', cardDate)
-        console.log('tacno ili ne:', cardDate.includes(formatedDate1));
-
-
-        filtStyleArr.map(eachF => {
-            eachF.style.border = '';
-            eachF.style.boxShadow = '';
-        })
-
 
         if (cardPercentage.includes(filterDOMPercent)) {
             allRowsDom.map((eachEl, itr) => {
@@ -174,19 +141,15 @@ function filteredOnSearched(calledFrom) {
                     eachEl.style.display = 'table-row';
                 }
             });
-            //============================================
         } else if (cardCategory.includes(filterDOM)) {
-            console.log(filterDOM)
             allRowsDom.map((eachEl, itr) => {
                 eachEl.style.display = 'none';
                 if (eachEl.cells[2].innerText.slice(0, 1) == filterDOM) {
                     eachEl.style.display = 'table-row';
                 }
             });
-            //============================================
-            console.log(cardDate.includes(formatedDate1))
+
         } else if (cardDate.includes(formatedDate1)) {
-            console.log('usli smo u date block!')
             allRowsDom.map((eachEl, itr) => {
                 eachEl.cells[2].innerText.slice(4)
                 eachEl.style.display = 'none';
@@ -194,7 +157,6 @@ function filteredOnSearched(calledFrom) {
                     eachEl.style.display = 'table-row';
                 }
             });
-            //============================================
         } else {
             allRowsDom.map((eachEl, itr) => {
                 eachEl.style.display = 'none';
@@ -205,35 +167,24 @@ function filteredOnSearched(calledFrom) {
             allRowsDom.map((eachEl, itr) => {
                 var cellTxt = eachEl.cells[2].innerText;
                 eachEl.style.display = 'none';
-                console.log('sta je celltxt', cellTxt.slice(4,10))
-                console.log(formatedDate1)
-                console.log('boolean:', cellTxt.slice(4,10) == formatedDate1)
-
-
                 if ( cellTxt.slice(0, 1) == filterDOM && cellTxt.slice(2, 4) == filterDOMPercent   /* && (cellTxt.slice(4,10) == formatedDate1)*/    ) {
-                    console.log('i ovo radi?')
-                     // ()&&() dodato.  && (cellTxt.slice(4,10) == formatedDate1)
                     eachEl.style.display = 'table-row';
                 }
             });
 
         } else if ((filterDOM != 'none' && filterDOMPercent != 'none') && !(booleanFilter)) {
-            console.log('console to see if it enter this block');
             allRowsDom.map((eachEl, itr) => {
                 eachEl.style.display = 'none';
-
             });
         }
     };
 };
-
 
 function sortUsers(sortArg) {
     if (localStorage.studentsRecord) {
         var userProp = document.getElementById('sort-opt-ascending').value;
         var userPropDesc = document.getElementById('sort-opt-descending').value;
         usersArray = JSON.parse(localStorage.studentsRecord);
-        //usersArray.push(JSON.parse(localStorage.studentsRecord));
         if (sortArg == 'ascending') {
             usersArray.sort((a, b) => {
                 return a[userProp] === b[userProp] ? 0 : a[userProp] < b[userProp] ? -1 : 1;
@@ -293,10 +244,7 @@ function onEditPressed(index) {
 
     document.getElementById("city-id").value = cardInfo.city;
     submitDom.value = "Update";
-    submitDom.style.border = '2px solid darkred';
-    submitDom.style.boxShadow = 'darkred 5px 5px 35px';
     document.querySelector('.form-cont').style.backgroundColor = '#c4c4c4';
 };
 
 
-/*&&  ( cellTxt.slice(4,10) == formatedDate1 ) */
