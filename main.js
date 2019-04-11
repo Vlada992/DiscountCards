@@ -3,33 +3,42 @@ var usersArray = [],
 var cardCodes, city, firstName, filterDOM, filterDOMPercent, cardCode;
 var cardCategory = [],
     cardPercentage = [],
-    cardDate = [],
-    cardExpiration1;
+    cardDate = []
 var cardExpiration,
-    allRowsDom = []
+    allRowsDom = [], searchQuery
 
 var regTable = document.getElementById('regtable').style;
 var submitDom = document.getElementById("submit");
 var tableRow0 = document.getElementById("tablerows-0");
 var filterBtn = document.getElementById('filter-btn-searched');
+var sortBtns = document.querySelectorAll('.sort-btns');
+
+
 
 filterDOMElCateg = document.getElementById('filter-searched-code-category');
 filterDOMElPerc = document.getElementById('filter-searched-code-discount');
 
 
-$("#submit").on('click', function () {
+$("#submit").on('click',() =>{
     $('html,body').animate({
         scrollTop: $('#regtable').offset().top
     }, 500);
 });
 
-
-$("#filter-btn-searched").on('click', function () {
+$("#filter-btn-searched").on('click', ()=> {
 
     $('html,body').animate({
         scrollTop: $('#regtable').offset().top
     }, 200);
 });
+
+$(".sort-btns").on('click', el => {
+    Array.from(sortBtns).map(elm =>{
+        elm.style.color = '#fff';
+    })
+    el.target.style.color = 'darkred';
+});
+
 
 
 function init() {
@@ -90,7 +99,7 @@ function onSearchPressed(calledFrom) {
     regTable.display = 'table';
     tableRow0.style.visibility = 'visible';
 
-    var searchQuery = document.getElementById('search-querry').value;
+     searchQuery = document.getElementById('search-querry').value;
     var searchSpan = document.getElementById('search-span-id');
 
     if (localStorage.studentsRecord) {
@@ -113,10 +122,11 @@ function onSearchPressed(calledFrom) {
                     cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
                     cardCategory.push(String(cardCodes[i])[0]);
                     cardDate.push(String(cardCodes[i]).substr(4, 10))
-            } 
+            }
         }
     }
     filteredOnSearched();
+
 };
 
 function filteredOnSearched(calledFrom) {
@@ -165,10 +175,21 @@ function sortUsers(sortOpt, name){
             } 
                 return a[name] === b[name] ? 0 : a[name] > b[name] ? -1 : 1;
         })
+
+   
+        allRowsDom.sort((a, b)=> {
+            if(sortOpt == 1){
+                return a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1;
+            } 
+                return a[name] === b[name] ? 0 : a[name] > b[name] ? -1 : 1;
+        })
+
         localStorage.studentsRecord = JSON.stringify(usersArray);
         init();
     }
 }
+
+
 
 
 
@@ -182,7 +203,7 @@ function prepareTableCell(index, firstName, city, cardCode) {
     firstNameCell.innerHTML = firstName;
     cityCell.innerHTML = city;
     cardCell.innerHTML = cardCode;
-    actionCell.innerHTML = '<a class="btn btn-primary" href="#form-cont-id" onclick="onEditPressed(' + index + ')">Edit</a><br/><a class="btn btn-primary btn-prim-del" onclick="deleteTableRow(' + index + ')">Delete</a>';
+    actionCell.innerHTML = '<a class="btn btn-primary" href="#form-cont-id" onclick="onEditPressed(' + index + ')">Edit <img class="edit-del-img" src="./images/pencilEdit1.png"/></a> <a class="btn btn-primary btn-prim-del" onclick="deleteTableRow(' + index + ')">Delete <img class="edit-del-img" src="./images/trashDelete1.png"/></a>';
 };
 
 
