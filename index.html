@@ -17,7 +17,7 @@
         <div class='row text-center'>
             <div class='col-lg-12'>
                 <header class="headerbar top">
-                    <h1>Discount Cards <img id='head-img' src='./images/discount.png'/></h1>
+                    <h1>Discount Cards <img id='head-img' src='./images/discount.png' /></h1>
                 </header>
             </div>
         </div>
@@ -131,35 +131,22 @@
 
 
                     <fieldset>
-                        <label for="sort-opt-ascending">Sort users
-                            ascending</label>
-                        <a class="btn btn-warning btn-warning-own" id='sort-btn-ascending'
-                            onclick="sortUsers('ascending')">
-                            <span class='sort-class'>Sort Ascending</span>
-                            <img class='sort-img' src='./images/arrow-up16.png' /></a>
-                        <select id="sort-opt-ascending">
-                            <option value="firstname">Name</option>
-                            <option value="city">City</option>
-                            <option value="cardCode">cardCode</option>
-                        </select>
-                    </fieldset>
+                        <label for="sort-opt-ascending">Sort users</label>
+                        <a class='sort-btns' onclick="sortUsers(1, 'firstname')"><span>Name</span> ▲
+                        </a>
+                        <a class='sort-btns' onclick="sortUsers(1, 'city')"><span>City</span> ▲
+                        </a>
+                        <a class='sort-btns' onclick="sortUsers(1, 'cardCode')"><span>CardCode</span> ▲
+                        </a>
+                        <a class='sort-btns' onclick="sortUsers(0, 'firstname')"><span>Name</span> ▼
+                        </a>
+                        <a class='sort-btns' onclick="sortUsers(0, 'city')"><span>City</span> ▼
+                        </a>
+                        <a class='sort-btns' onclick="sortUsers(0, 'cardCode')"><span>CardCode</span> ▼
+                        </a>
 
-                    <fieldset class='fieldset-descending'>
-                        <label for='sort-opt-descending'>Sort users
-                            descending</label>
-                        <a class="btn btn-warning btn-warning-own" id='sort-btn-descending'
-                            onclick="sortUsers('descending')">
-                            <span class='sort-class'>Sort Descending</span>
-                            <img class='sort-img' src='./images/arrow-pointing-down.png' /></a>
-                        <select id="sort-opt-descending">
-                            <option value="firstname">Name</option>
-                            <option value="city">City</option>
-                            <option value="cardCode">cardCode</option>
-                        </select>
                     </fieldset>
-
                 </div>
-                <!--container for form-->
 
             </div>
 

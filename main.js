@@ -119,15 +119,15 @@ function onSearchPressed(calledFrom) {
     filteredOnSearched();
 };
 
-
+/*
 function filteredOnSearched(calledFrom) {
     filterDOM = document.getElementById('filter-searched-code-category').value;
     filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
     filterDOMDate = document.getElementById('filter-searched-code-date').value;
     var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
-    var booleanFilter =  cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent ); 
-    console.log(formatedDate1);
+    var booleanFilter =  cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent  ); 
 
+    
     if (calledFrom == 'filter') {
         if ( (filterDOM == 'none' && filterDOMPercent == 'none' ) && formatedDate1 == 'none') {
             alert('You should provide some option value first')
@@ -136,6 +136,7 @@ function filteredOnSearched(calledFrom) {
 
         if (cardPercentage.includes(filterDOMPercent)) {
             allRowsDom.map((eachEl, itr) => {
+                console.log('enter here percentage')
                 eachEl.style.display = 'none';
                 if (eachEl.cells[2].innerText.slice(2, 4) == filterDOMPercent) {
                     eachEl.style.display = 'table-row';
@@ -165,9 +166,10 @@ function filteredOnSearched(calledFrom) {
 
         if (booleanFilter) {
             allRowsDom.map((eachEl, itr) => {
-                var cellTxt = eachEl.cells[2].innerText;
+                console.log('BOOLEAN FILTER')
+                var cellCardNumber = eachEl.cells[2].innerText;
                 eachEl.style.display = 'none';
-                if ( cellTxt.slice(0, 1) == filterDOM && cellTxt.slice(2, 4) == filterDOMPercent   /* && (cellTxt.slice(4,10) == formatedDate1)*/    ) {
+                if ( cellCardNumber.slice(0, 1) == filterDOM && cellCardNumber.slice(2, 4) == filterDOMPercent ) {
                     eachEl.style.display = 'table-row';
                 }
             });
@@ -180,24 +182,62 @@ function filteredOnSearched(calledFrom) {
     };
 };
 
-function sortUsers(sortArg) {
-    if (localStorage.studentsRecord) {
-        var userProp = document.getElementById('sort-opt-ascending').value;
-        var userPropDesc = document.getElementById('sort-opt-descending').value;
-        usersArray = JSON.parse(localStorage.studentsRecord);
-        if (sortArg == 'ascending') {
-            usersArray.sort((a, b) => {
-                return a[userProp] === b[userProp] ? 0 : a[userProp] < b[userProp] ? -1 : 1;
-            })
-        } else {
-            usersArray.sort((a, b) => {
-                return a[userPropDesc] === b[userPropDesc] ? 0 : a[userPropDesc] > b[userPropDesc] ? -1 : 1;
-            })
+*/
+
+//=========================================
+function filteredOnSearched(calledFrom) {
+    filterDOM = document.getElementById('filter-searched-code-category').value;
+    filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
+    filterDOMDate = document.getElementById('filter-searched-code-date').value;
+    var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
+ 
+    if (calledFrom == 'filter') {
+        if ( (filterDOM == 'none' && filterDOMPercent == 'none' ) && formatedDate1 == 'none') {
+            alert('You should provide some option value first')
+            return;
         }
+ 
+        let filteredData = allRowsDom
+ 
+        if (filterDOMPercent != 'none' && cardPercentage.includes(filterDOMPercent)) {
+            filteredData = filteredData.filter(el => el.cells[2].innerText.slice(2, 4) == filterDOMPercent)
+        }
+ 
+        if (filterDOM != 'none' && cardCategory.includes(filterDOM)) {
+          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(0, 1) == filterDOM)
+        }
+ 
+        if (formatedDate1 != 'none' && cardDate.includes(formatedDate1)) {
+          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(4) == formatedDate1)
+        }
+ 
+        allRowsDom.forEach(el => {
+            el.style.display = 'none';
+        })
+ 
+        filteredData.forEach(el => {
+          el.style.display = 'table-row';
+        })
+ 
+    };
+};
+//================================
+
+
+
+function sortUsers(sortOpt, name){
+    if (localStorage.studentsRecord) {
+        usersArray = JSON.parse(localStorage.studentsRecord);
+        usersArray.sort((a, b)=> {
+            if(sortOpt == 1){
+                return a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1;
+            } 
+                return a[name] === b[name] ? 0 : a[name] > b[name] ? -1 : 1;
+        })
         localStorage.studentsRecord = JSON.stringify(usersArray);
         init();
     }
-};
+}
 
 
 function prepareTableCell(index, firstName, city, cardCode) {
