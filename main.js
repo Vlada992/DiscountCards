@@ -3,17 +3,21 @@ var usersArray = [],
 var cardCodes, city, firstName, filterDOM, filterDOMPercent, cardCode;
 var cardCategory = [],
     cardPercentage = [],
+    cardDate = [],
     cardExpiration1;
-var cardExpiration, cardExp = [], allRowsDom = []
+var cardExpiration,
+    allRowsDom = []
 
 var regTable = document.getElementById('regtable').style;
 var submitDom = document.getElementById("submit");
 var tableRow0 = document.getElementById("tablerows-0");
 var filterBtn = document.getElementById('filter-btn-searched');
 
+
 //taking filter dom, without value, to style them.
 filterDOMElCateg = document.getElementById('filter-searched-code-category');
 filterDOMElPerc = document.getElementById('filter-searched-code-discount');
+
 
 
 
@@ -25,6 +29,7 @@ $("#submit").on('click', function () {
 
 
 $("#filter-btn-searched").on('click', function () {
+
     $('html,body').animate({
         scrollTop: $('#regtable').offset().top
     }, 200);
@@ -111,18 +116,21 @@ function onSearchPressed(calledFrom) {
                 searchSpan.classList.remove('show-search-txt');
                 searchSpan.classList.add('hide-search-txt');
 
-                allRowsDom.push(tableRow0.children[i])
-                cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
-                cardCategory.push(String(cardCodes[i])[0]);
-                cardExp.push(String(cardCodes).substr(4))
+                {
+                    allRowsDom.push(tableRow0.children[i])
+                    cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
+                    cardCategory.push(String(cardCodes[i])[0]);
+                    cardDate.push(String(cardCodes[i]).substr(4, 10))
+                    console.log('to je:', cardDate);
+                }
 
             } else if ((firstName.includes(searchQuery) || city.includes(searchQuery) || cardCodes.includes(searchQuery)) == false) {
                 searchSpan.classList.remove('hide-search-txt')
                 searchSpan.classList.add('show-search-txt')
-                searchSpan.style.visibility='hidden'
-                setTimeout(()=>{
-                    searchSpan.style.visibility='visible'
-                },75)
+                searchSpan.style.visibility = 'hidden'
+                setTimeout(() => {
+                    searchSpan.style.visibility = 'visible'
+                }, 75)
 
                 tableRow0.children[i].style.display = 'table-row';
             }
@@ -131,39 +139,51 @@ function onSearchPressed(calledFrom) {
     filteredOnSearched();
 };
 
-
 function filteredOnSearched(calledFrom) {
     filterDOM = document.getElementById('filter-searched-code-category').value;
     filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
+    filterDOMDate = document.getElementById('filter-searched-code-date').value
+    var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
+
+    var booleanFilter = (   cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent) ); 
+    /* &&  cardDate[0].includes(formatedDate1)*/
     
-    filtStyleArr = [filterBtn,filterDOMElCateg, filterDOMElPerc];
-    filtStyleArr.map(eachF=>{
-        eachF.style.border ='2px solid darkred';
-        eachF.style.boxShadow='darkred 5px 5px 20px';
+    console.log(booleanFilter)
+    console.log(formatedDate1);
+    console.log('tacno ili ne:', cardDate[0].includes(formatedDate1));
+    
+    filtStyleArr = [filterBtn, filterDOMElCateg, filterDOMElPerc];
+    filtStyleArr.map(eachF => {
+        eachF.style.border = '2px solid darkred';
+        eachF.style.boxShadow = 'darkred 5px 5px 20px';
     })
 
     if (calledFrom == 'filter') {
-        if(filterDOM == 'none' && filterDOMPercent == 'none'){
+        if ( (filterDOM == 'none' && filterDOMPercent == 'none' ) && formatedDate1 == 'none') {
             alert('You should provide some option value first')
             return;
         }
-        filtStyleArr.map(eachF =>{
-            eachF.style.border ='';
-            eachF.style.boxShadow='';
-        })
-        
-    
-        
-        if (cardPercentage.includes(filterDOMPercent)) {
-            allRowsDom.map((eachEl, itr) => { 
-                eachEl.style.display = 'none';
 
+        console.log(cardDate);
+        console.log('tacno ili ne:', cardDate[0].includes(formatedDate1));
+
+
+        filtStyleArr.map(eachF => {
+            eachF.style.border = '';
+            eachF.style.boxShadow = '';
+        })
+
+
+        if (cardPercentage.includes(filterDOMPercent)) {
+            allRowsDom.map((eachEl, itr) => {
+                eachEl.style.display = 'none';
                 if (eachEl.cells[2].innerText.slice(2, 4) == filterDOMPercent) {
                     eachEl.style.display = 'table-row';
                 }
             });
             //============================================
         } else if (cardCategory.includes(filterDOM)) {
+            console.log(filterDOM)
             allRowsDom.map((eachEl, itr) => {
                 eachEl.style.display = 'none';
                 if (eachEl.cells[2].innerText.slice(0, 1) == filterDOM) {
@@ -171,20 +191,45 @@ function filteredOnSearched(calledFrom) {
                 }
             });
             //============================================
-        } else {  // ======== Fix it here, hide rows if doesn't exist ========
+
+        } else if (cardDate[0].includes(formatedDate1)) {
+            console.log('usli smo u date block!')
+            allRowsDom.map((eachEl, itr) => {
+                eachEl.cells[2].innerText.slice(4)
+                eachEl.style.display = 'none';
+                if (eachEl.cells[2].innerText.slice(4) == formatedDate1) {
+                    eachEl.style.display = 'table-row';
+                }
+            });
+            //============================================
+        } else {
             allRowsDom.map((eachEl, itr) => {
                 eachEl.style.display = 'none';
             });
         }
-        
-        if( cardCategory.includes(filterDOM) && cardPercentage.includes(filterDOMPercent) ) {
+
+        if (booleanFilter) {
             allRowsDom.map((eachEl, itr) => {
+                var cellTxt = eachEl.cells[2].innerText;
                 eachEl.style.display = 'none';
-                if (eachEl.cells[2].innerText.slice(0, 1) == filterDOM && eachEl.cells[2].innerText.slice(2, 4) == filterDOMPercent) {
+                console.log('sta je celltxt', cellTxt.slice(4,10))
+                console.log(formatedDate1)
+                console.log('boolean:', cellTxt.slice(4,10) == formatedDate1)
+
+
+                if ( cellTxt.slice(0, 1) == filterDOM && cellTxt.slice(2, 4) == filterDOMPercent   /* && (cellTxt.slice(4,10) == formatedDate1)*/    ) {
+                    console.log('i ovo radi?')
+                     // ()&&() dodato.  && (cellTxt.slice(4,10) == formatedDate1)
                     eachEl.style.display = 'table-row';
                 }
             });
 
+        } else if ((filterDOM != 'none' && filterDOMPercent != 'none') && !(booleanFilter)) {
+            console.log('console to see if it enter this block');
+            allRowsDom.map((eachEl, itr) => {
+                eachEl.style.display = 'none';
+
+            });
         }
     };
 };
@@ -196,7 +241,6 @@ function sortUsers(sortArg) {
         var userPropDesc = document.getElementById('sort-opt-descending').value;
         usersArray = JSON.parse(localStorage.studentsRecord);
         //usersArray.push(JSON.parse(localStorage.studentsRecord));
-
         if (sortArg == 'ascending') {
             usersArray.sort((a, b) => {
                 return a[userProp] === b[userProp] ? 0 : a[userProp] < b[userProp] ? -1 : 1;
@@ -206,7 +250,6 @@ function sortUsers(sortArg) {
                 return a[userPropDesc] === b[userPropDesc] ? 0 : a[userPropDesc] > b[userPropDesc] ? -1 : 1;
             })
         }
-
         localStorage.studentsRecord = JSON.stringify(usersArray);
         init();
     }
@@ -261,3 +304,6 @@ function onEditPressed(index) {
     submitDom.style.boxShadow = 'darkred 5px 5px 35px';
     document.querySelector('.form-cont').style.backgroundColor = '#c4c4c4';
 };
+
+
+/*&&  ( cellTxt.slice(4,10) == formatedDate1 ) */

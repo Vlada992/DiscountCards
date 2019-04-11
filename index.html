@@ -17,7 +17,7 @@
         <div class='row text-center'>
             <div class='col-lg-12'>
                 <header class="headerbar top">
-                    <h1>Discount Cards</h1>
+                    <h1>Discount Cards <img id='head-img' src='./images/discount.png'/></h1>
                 </header>
             </div>
         </div>
@@ -67,7 +67,7 @@
 
                         <fieldset>
                             <label for="expiration-id">Expiration Date</label>
-                            <input type="date" id="expiration-id" name="card-start" value="2019-05-01" min="2019-05-01"
+                            <input type="date" id="expiration-id" name="card-start" value="2019-04-20" min="2019-04-20"
                                 max="2021-12-31">
                         </fieldset>
 
@@ -89,9 +89,9 @@
                             onclick="onSearchPressed('search')"><span class='helper-span'></span>
                             <img src='./images/search-icon.png' /></a>
 
-                            
+
                     </fieldset>
-                    
+
 
                     <fieldset>
                         <label for="filter-searched-code">Filter searched
@@ -102,8 +102,8 @@
 
                             <span class='sort-class'>Filter Searched</span>
                             <img class='sort-img' src='./images/filter1.png' /></a>
-                        
-                        <!-- ----------------------new functionalitty---------------------------------- -->
+
+                        <!--     ----------------------new functionalitty----------------------------------    -->
                         <select id='filter-searched-code-category'>
                             <optgroup label="Category">
                                 <option value="none">none</option>
@@ -124,13 +124,8 @@
                             </optgroup>
                         </select>
 
-                        <select id='filter-searched-code-date'>
-                            <optgroup label="Expiration Date">
-                                
-                            </optgroup>
-                        </select>
-
-
+                        <input type="date" id='filter-searched-code-date' name="card-start" value="none"
+                            min="2019-04-20" max="2021-12-31">
                     </fieldset>
 
 
