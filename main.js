@@ -1,11 +1,8 @@
-var usersArray = [],
-    selectedIndex = -1;
-var cardCodes, city, firstName, filterDOM, filterDOMPercent, cardCode;
-var cardCategory = [],
-    cardPercentage = [],
-    cardDate = []
-var cardExpiration,
-    allRowsDom = [], searchQuery
+var usersArray = [],selectedIndex = -1;
+var cardCodes, city, firstName, filterCategory, filterPercent, cardCode;
+var cardCategory = [], cardPercentage = [], cardDate = []
+var cardExpiration, tableRow = [], searchQuery
+var userA = [], newUserA = [];
 
 var regTable = document.getElementById('regtable').style;
 var submitDom = document.getElementById("submit");
@@ -15,17 +12,20 @@ var sortBtns = document.querySelectorAll('.sort-btns');
 
 
 
-filterDOMElCateg = document.getElementById('filter-searched-code-category');
-filterDOMElPerc = document.getElementById('filter-searched-code-discount');
-
-
-$("#submit").on('click',() =>{
+$("#submit").on('click',() => {
     $('html,body').animate({
         scrollTop: $('#regtable').offset().top
     }, 500);
 });
 
-$("#filter-btn-searched").on('click', ()=> {
+$("#filter-btn-searched").on('click', () => {
+
+    $('html,body').animate({
+        scrollTop: $('#regtable').offset().top
+    }, 200);
+});
+
+$("#filter-btn-searched-1").on('click', ()=> {
 
     $('html,body').animate({
         scrollTop: $('#regtable').offset().top
@@ -33,8 +33,8 @@ $("#filter-btn-searched").on('click', ()=> {
 });
 
 $(".sort-btns").on('click', el => {
-    Array.from(sortBtns).map(elm =>{
-        elm.style.color = '#fff';
+    Array.from(sortBtns).map(btn => {
+        btn.style.color = '#fff';
     })
     el.target.style.color = 'darkred';
 });
@@ -44,16 +44,17 @@ $(".sort-btns").on('click', el => {
 function init() {
     tableRow0.innerHTML = "";
     regTable.display = 'table';
-
     if (localStorage.studentsRecord) {
+
         usersArray = JSON.parse(localStorage.studentsRecord);
         for (var i = 0; i < usersArray.length; i++) {
             prepareTableCell(i, usersArray[i].firstname, usersArray[i].city, usersArray[i].cardCode);
+            userA.push(tableRow0.children[i]);
         }
     }
 };
 
-function onRegisterPressed() {
+function onRegisterClicked() {
     if (submitDom.value == 'Update') {
         submitDom.style.border = '';
         submitDom.style.boxShadow = '';
@@ -64,6 +65,7 @@ function onRegisterPressed() {
     var cardNumbArr = [],
         cardNumber, cardOptionId = [],
         dateFormatted;
+
 
     cardOptionId = ['category-id', 'accumulation-id', 'percentage-id'];
     cardExpiration = document.getElementById('expiration-id').value;
@@ -95,12 +97,12 @@ function onRegisterPressed() {
     onClearPressed();
 };
 
-function onSearchPressed(calledFrom) {
+function onSearchPressed() {
     regTable.display = 'table';
     tableRow0.style.visibility = 'visible';
 
      searchQuery = document.getElementById('search-querry').value;
-    var searchSpan = document.getElementById('search-span-id');
+     var searchSpan = document.getElementById('search-span-id');
 
     if (localStorage.studentsRecord) {
         usersArray = JSON.parse(localStorage.studentsRecord);
@@ -115,10 +117,8 @@ function onSearchPressed(calledFrom) {
             if (usersArray[i].firstname.indexOf(searchQuery) != -1 || usersArray[i].city.indexOf(searchQuery) != -1 || usersArray[i].cardCode.toString().indexOf(searchQuery) != -1) {
                 document.getElementById('search-btn').href = '#tablerows-0';
                 tableRow0.children[i].style.display = 'table-row';
-                searchSpan.classList.remove('show-search-txt');
-                searchSpan.classList.add('hide-search-txt');
 
-                    allRowsDom.push(tableRow0.children[i])
+                    tableRow.push(tableRow0.children[i])
                     cardPercentage.push((String(cardCodes[i])[2] + String(cardCodes[i])[3]).split(' ').join())
                     cardCategory.push(String(cardCodes[i])[0]);
                     cardDate.push(String(cardCodes[i]).substr(4, 10))
@@ -126,70 +126,78 @@ function onSearchPressed(calledFrom) {
         }
     }
     filteredOnSearched();
-
+    filteredOnSearchedGlobal();
 };
 
 function filteredOnSearched(calledFrom) {
-    filterDOM = document.getElementById('filter-searched-code-category').value;
-    filterDOMPercent = document.getElementById('filter-searched-code-discount').value;
-    filterDOMDate = document.getElementById('filter-searched-code-date').value;
-    var formatedDate1 = filterDOMDate  ? moment(filterDOMDate).format("DDMMYY") : 'none';
- 
+    filterCategory = document.getElementById('filter-searched-code-category').value;
+    filterPercent = document.getElementById('filter-searched-code-discount').value;
+    filterDate = document.getElementById('filter-searched-code-date').value;
+    var formatedDate = filterDate  ? moment(filterDate).format("DDMMYY") : 'none';
+
     if (calledFrom == 'filter') {
-        if ( (filterDOM == 'none' && filterDOMPercent == 'none' ) && formatedDate1 == 'none') {
+        if ( (filterCategory == 'none' && filterPercent == 'none' ) && formatedDate == 'none') {
             alert('You should provide some option value first')
             return;
         }
- 
-        let filteredData = allRowsDom
- 
-        if (filterDOMPercent != 'none'  ) {
-            filteredData = filteredData.filter(el => el.cells[2].innerText.slice(2, 4) == filterDOMPercent)
+
+        let filteredData = tableRow;
+        if (filterPercent != 'none') {
+            filteredData = filteredData.filter(el => el.cells[2].innerText.slice(2, 4) == filterPercent)
         }
  
-        if (filterDOM != 'none' ) {
-          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(0, 1) == filterDOM)
+        if (filterCategory != 'none' ) {
+          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(0, 1) == filterCategory)
         }
  
-        if (formatedDate1 != 'none') {
-          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(4) == formatedDate1)
+        if (formatedDate != 'none') {
+          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(4) == formatedDate)
         }
  
-        allRowsDom.forEach(el => {
+        tableRow.forEach(el => {
+            el.style.display = 'none';
+        })
+    
+        filteredData.forEach(el => {
+          el.style.display = 'table-row';
+        })
+    } 
+};
+
+function filteredOnSearchedGlobal(calledFrom) {
+    filterCategory = document.getElementById('filter-searched-code-category').value;
+    filterPercent = document.getElementById('filter-searched-code-discount').value;
+    filterDate = document.getElementById('filter-searched-code-date').value;
+    var formatedDate = filterDate  ? moment(filterDate).format("DDMMYY") : 'none';
+
+    if (calledFrom == 'global filter') {
+        if ( (filterCategory == 'none' && filterPercent == 'none' ) && formatedDate == 'none') {
+            alert('You should provide some option value first')
+            return;
+        }
+        let filteredData = userA;
+ 
+        if (filterPercent != 'none') {
+            filteredData = filteredData.filter(el => el.cells[2].innerText.slice(2, 4) == filterPercent)
+        }
+ 
+        if (filterCategory != 'none' ) {
+          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(0, 1) == filterCategory)
+        }
+ 
+        if (formatedDate != 'none') {
+          filteredData = filteredData.filter(el => el.cells[2].innerText.slice(4) == formatedDate)
+        }
+ 
+        userA.forEach(el => {
             el.style.display = 'none';
         })
  
         filteredData.forEach(el => {
           el.style.display = 'table-row';
         })
- 
     };
 };
-
-function sortUsers(sortOpt, name){
-    if (localStorage.studentsRecord) {
-        usersArray = JSON.parse(localStorage.studentsRecord);
-        usersArray.sort((a, b)=> {
-            if(sortOpt == 1){
-                return a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1;
-            } 
-                return a[name] === b[name] ? 0 : a[name] > b[name] ? -1 : 1;
-        })
-
-   
-        allRowsDom.sort((a, b)=> {
-            if(sortOpt == 1){
-                return a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1;
-            } 
-                return a[name] === b[name] ? 0 : a[name] > b[name] ? -1 : 1;
-        })
-
-        localStorage.studentsRecord = JSON.stringify(usersArray);
-        init();
-    }
-}
-
-
 
 
 
@@ -206,7 +214,6 @@ function prepareTableCell(index, firstName, city, cardCode) {
     actionCell.innerHTML = '<a class="btn btn-primary" href="#form-cont-id" onclick="onEditPressed(' + index + ')">Edit <img class="edit-del-img" src="./images/pencilEdit1.png"/></a> <a class="btn btn-primary btn-prim-del" onclick="deleteTableRow(' + index + ')">Delete <img class="edit-del-img" src="./images/trashDelete1.png"/></a>';
 };
 
-
 function deleteTableRow(index) {
     usersArray.splice(index, 1);
     var deletePrompt = prompt('Do you really want to delete cell?', 'yes');
@@ -217,14 +224,17 @@ function deleteTableRow(index) {
 };
 
 function onClearPressed() {
+    var firstN = document.getElementById("firstname-id").value
+    if(firstN){
     selectedIndex = -1;
-    document.getElementById("firstname-id").value = "";
+    firstN.value = "";
     document.getElementById("city-id").value = "";
     document.getElementById("submit").innerHTML = "Submit User";
     submitDom.style.border = '';
     submitDom.style.boxShadow = '';
     submitDom.value = 'Submit'
     document.querySelector('.form-cont').style.backgroundColor = '#e3e3e3';
+} else alert('You don\'t have anything to clear');
 };
 
 function onEditPressed(index) {
@@ -233,8 +243,7 @@ function onEditPressed(index) {
     var cardInfo = usersArray[index];
     firstN.value = cardInfo.firstname;
     firstN.style.fontWeight = 900;
-    firstN.style.backgroundColor = '#99a682';
-
+    firstN.style.backgroundColor = '#99a682'; 
     document.getElementById("city-id").value = cardInfo.city;
     submitDom.value = "Update";
     document.querySelector('.form-cont').style.backgroundColor = '#c4c4c4';

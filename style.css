@@ -335,7 +335,8 @@ td:nth-of-type(4) {
 
 #sort-btn-ascending,
 #sort-btn-descending,
-#filter-btn-searched
+#filter-btn-searched,
+#filter-btn-searched-1
  {
     width: 35%;
     height: 40px;
@@ -343,7 +344,7 @@ td:nth-of-type(4) {
     padding: 0px;
 }
 
-#filter-btn-searched {
+#filter-btn-searched, #filter-btn-searched-1 {
     width:50%;
     margin-bottom:1%;
 }
@@ -400,7 +401,7 @@ td:nth-of-type(4) {
     #clear,
     #search-querry,
     #search-btn,
-    #filter-btn-searched {
+    #filter-btn-searched,#filter-btn-searched-1 {
         width: 100%;
     }
 
